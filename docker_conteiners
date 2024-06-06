@@ -1,0 +1,15 @@
+docker pull  clickhouse/clickhouse-server
+docker pull  grafana/grafana
+
+docker run -d --name clickhouse-server --restart unless-stopped --cpus="1.0" --memory="1g" -e CLICKHOUSE_DB=my_database -e CLICKHOUSE_USER=username -e CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1 -e CLICKHOUSE_PASSWORD=password -p 8123:8123 -p 9000:9000 -v /Users/uliamosienko/docker:/var/lib/clickhouse clickhouse/clickhouse-server
+
+docker run -d --name grafana --restart unless-stopped --cpus="1.5" --memory="2g" -p 3000:3000 -v /Users/uliamosienko/docker/grafana:/var/lib/grafana grafana/grafana
+
+docker restart clickhouse-server 
+docker restart grafana 
+
+docker stop clickhouse-server
+docker stop grafana 
+
+docker rm clickhouse-server 
+docker rm grafana 
